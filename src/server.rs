@@ -195,12 +195,10 @@ fn networks(req: &mut Request) -> IronResult<Response> {
 }
 
 fn connect(req: &mut Request) -> IronResult<Response> {
-    let (ssid, identity, passphrase) = {
+    let (ssid, passphrase) = {
         let params = get_request_ref!(req, Params, "Getting request params failed");
         let ssid = get_param!(params, "ssid", String);
-        let identity = get_param!(params, "identity", String);
-        let passphrase = get_param!(params, "passphrase", String);
-        (ssid, identity, passphrase)
+        (ssid, passphrase)
     };
 
     debug!("Incoming `connect` to access point `{}` request", ssid);
@@ -209,7 +207,6 @@ fn connect(req: &mut Request) -> IronResult<Response> {
 
     let command = NetworkCommand::Connect {
         ssid: ssid,
-        identity: identity,
         passphrase: passphrase,
     };
 
