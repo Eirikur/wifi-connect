@@ -164,17 +164,23 @@ install_wfc() {
     local _wfc_version
     local _download_dir
 
-    say "Retrieving latest release from $RELEASE_URL..."
+    # say "Retrieving latest release from $RELEASE_URL..."
 
-    _arch_url=$(ensure curl "$RELEASE_URL" -s | grep -hoP "$_regex")
+    # _arch_url=$(ensure curl "$RELEASE_URL" -s | grep -hoP "$_regex")
 
-    say "Downloading and extracting $_arch_url..."
+    # say "Downloading and extracting $_arch_url..."
 
-    _download_dir=$(ensure mktemp -d)
+    # _download_dir=$(ensure mktemp -d)
 
-    ensure curl -Ls "$_arch_url" | tar -xz -C "$_download_dir"
+    # ensure curl -Ls "$_arch_url" | tar -xz -C "$_download_dir"
 
-    ensure sudo mv "$_download_dir/wifi-connect" $INSTALL_BIN_DIR
+    # Eirikur, rejiggering this to install out of the project tree.
+
+    _download_dir=$(pwd)
+
+    # ensure sudo mv "$_download_dir/wifi-connect" $INSTALL_BIN_DIR
+    # Eirikur
+    ensure sudo cp -v ./target/arm-unknown-linux-gnueabihf/release/wifi-connect $INSTALL_BIN_DIR
 
     ensure sudo mkdir -p $INSTALL_UI_DIR
 
