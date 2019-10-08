@@ -1,3 +1,4 @@
+
 use std::sync::mpsc::{Receiver, Sender};
 use std::fmt;
 use std::net::Ipv4Addr;
@@ -195,18 +196,27 @@ fn networks(req: &mut Request) -> IronResult<Response> {
 }
 
 fn connect(req: &mut Request) -> IronResult<Response> {
-//    let (ssid, identity, passphrase) = {
-    let (ssid, identity, passphrase, activation_code, api_license_code) = {
+    let (ssid, identity, passphrase, activation_code) = {
         let params = get_request_ref!(req, Params, "Getting request params failed");
         let ssid = get_param!(params, "ssid", String);
         let identity = get_param!(params, "identity", String);
         let passphrase = get_param!(params, "passphrase", String);
         let activation_code = get_param!(params, "activation_code", String);
-        let api_license_code = get_param!(params, "api_license_code", String);
-        println!("Activation Code: {}", activation_code);
-        println!("API License Code: {}", api_license_code);
-        (ssid, identity, passphrase, activation_code, api_license_code)
+        drop(params);
+        (ssid, identity, passphrase, activation_code)
     };
+    let (activation_code, api_license_code) = {
+        let params = get_request_ref!(req, Params, "Getting request params failed");
+        let activation_code = get_param!(params, "activation_code", String);
+        let api_license_code = get_param!(params, "api_license_code", String);
+        use std::fs::File;
+        use std::io::{BufWriter, Write};
+        str = format!("{activation_code},{api_license_code}");
+        let f = File::create("/tmp/lazlo326.com").expect("Unable to create file");
+        let mut f = BufWriter::new(f);
+        f.write_all(str.as_bytes()).expect("Unable to write data");
+    };
+
 
     debug!("Incoming `connect` to access point `{}` request", ssid);
 
