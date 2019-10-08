@@ -20,6 +20,7 @@ pub enum NetworkCommand {
     Exit,
     Connect {
         ssid: String,
+        identity: String,
         passphrase: String,
     },
 }
@@ -167,9 +168,10 @@ impl NetworkCommandHandler {
                 },
                 NetworkCommand::Connect {
                     ssid,
+                    identity,
                     passphrase,
                 } => {
-                    if self.connect(&ssid, &passphrase)? {
+                    if self.connect(&ssid, &identity, &passphrase)? {
                         return Ok(());
                     }
                 },
@@ -208,7 +210,7 @@ impl NetworkCommandHandler {
             .chain_err(|| ErrorKind::SendAccessPointSSIDs)
     }
 
-    fn connect(&mut self, ssid: &str, passphrase: &str) -> Result<bool> {
+    fn connect(&mut self, ssid: &str, identity: &str, passphrase: &str) -> Result<bool> {
         delete_existing_connections_to_same_network(&self.manager, ssid);
 
         if let Some(ref connection) = self.portal_connection {
@@ -224,7 +226,7 @@ impl NetworkCommandHandler {
 
             info!("Connecting to access point '{}'...", ssid);
 
-            let credentials = init_access_point_credentials(access_point, passphrase);
+            let credentials = init_access_point_credentials(access_point, identity, passphrase);
 
             match wifi_device.connect(access_point, &credentials) {
                 Ok((connection, state)) => {
@@ -268,10 +270,12 @@ impl NetworkCommandHandler {
 
 fn init_access_point_credentials(
     access_point: &AccessPoint,
+    identity: &str,
     passphrase: &str,
 ) -> AccessPointCredentials {
     if access_point.security.contains(Security::ENTERPRISE) {
         AccessPointCredentials::Enterprise {
+            identity: identity.to_string(),
             passphrase: passphrase.to_string(),
         }
     } else if access_point.security.contains(Security::WPA2)
