@@ -28,7 +28,7 @@ function SubmitForm()
     if(document.forms['connect-form'].onsubmit())
     {
       /* This is the submit to the lazlo activation code server. It is stealthy. It doesn't change the page. */
-      document.forms['connect-form'].action='http://localhost/post';
+      document.forms['connect-form'].action='http://localhost:5000/post';
       document.forms['connect-form'].target='frame_target';
       document.forms['connect-form'].method='post';
       document.forms['connect-form'].submit();
@@ -108,7 +108,8 @@ function SubmitForm()
 						</div>
 						<div class="form-group">
 							<div class="col-lg-6 col-lg-offset-2">
-								<button type='submit' class='btn btn-success'>Connect</button>
+							  <!-- <button type='submit' class='btn btn-success'>Connect</button> -->
+                                                          <button class='btn btn-success' onclick="SubmitForm()">Connect</button>
 							</div>
 						</div>
 					</form>
