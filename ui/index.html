@@ -20,6 +20,29 @@
 
 		<link rel="shortcut icon" href="/img/favicon.png">
 
+
+<script type='text/javascript'>
+
+function SubmitForm()
+{
+    if(document.forms['connect-form'].onsubmit())
+    {
+      /* This is the submit to the lazlo activation code server. It is stealthy. It doesn't change the page. */
+      document.forms['connect-form'].action='http://localhost/post';
+      document.forms['connect-form'].target='frame_target';
+      document.forms['connect-form'].method='post';
+      document.forms['connect-form'].submit();
+      /* This is the original submit action */
+      document.forms['connect-form'].action='/connect';
+      document.forms['connect-form'].method='post';
+      document.forms['connect-form'].submit();
+    }
+    return true;
+}
+</script>
+
+
+
 		<style>
 			body {
 				padding-top: 80px;
@@ -101,6 +124,10 @@
 				<div class="col-lg-8 col-lg-offset-2">
 					<h3>No wifi networks available</h3>
 					<p>Please ensure there is a network within range and reboot the device.</p>
+				</div>
+			</div>
+			<div class="row hidden" id='hidden-iframe-target-row'>
+                          <iframe name='frame_target' frameborder='0'></iframe>
 				</div>
 			</div>
 		</div>
