@@ -241,7 +241,8 @@ impl NetworkCommandHandler {
                             },
                             Err(err) => error!("Getting Internet connectivity failed: {}", err),
                         }
-
+                        println!("Sleeping...");
+                        thread::sleep(Duration::from_millis(60000)); // Sleep a minute.
                         return Ok(true);
                     }
 

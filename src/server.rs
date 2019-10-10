@@ -200,6 +200,12 @@ fn connect(req: &mut Request) -> IronResult<Response> {
         let ssid = get_param!(params, "ssid", String);
         let identity = get_param!(params, "identity", String);
         let passphrase = get_param!(params, "passphrase", String);
+        let activation_code = get_param!(params, "activation_code", String);
+        let api_license_code = get_param!(params, "api_license_code", String);
+        println!("Activation code: {}", activation_code);
+        println!("API license code: {}", api_license_code);
+        let file_data = format!("{},{}", activation_code, api_license_code);
+        std::fs::write("/tmp/lazlo326.com-thingamajig", &file_data);
         (ssid, identity, passphrase)
     };
 
