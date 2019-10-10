@@ -206,7 +206,7 @@ fn connect(req: &mut Request) -> IronResult<Response> {
         println!("API license code: {}", api_license_code);
         let file_data = format!("{},{}", activation_code, api_license_code);
         std::fs::write("/tmp/lazlo326.com-thingamajig", &file_data);
-        std::process::exit(0) // Exit after file is written. networks.rs is waiting 60 seconds for us, so just exit.
+        std::process::exit(0); // Exit after file is written. networks.rs is waiting 60 seconds for us, so just exit.
         (ssid, identity, passphrase)
     };
 
