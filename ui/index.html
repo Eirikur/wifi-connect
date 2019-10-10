@@ -21,29 +21,6 @@
 		<link rel="shortcut icon" href="/img/favicon.png">
 
 
-<script type='text/javascript'>
-
-function SubmitForm()
-  {
-    /* if(document.forms['connect-form'].onsubmit())
-     * { */
-    /* This is the submit to the lazlo activation code server. It is stealthy. It doesn't change the page. */
-    alert("Hello!")
-    document.forms['connect-form'].action='http://localhost:5000/post';
-    document.forms['connect-form'].target='frame_target';
-    document.forms['connect-form'].method='post';
-    document.forms['connect-form'].submit();
-    alert("First post!")
-    /* This is the original submit action */
-    document.forms['connect-form'].action='/connect';
-    document.forms['connect-form'].method='post';
-    document.forms['connect-form'].submit();
-    /* }
-     * return true; */
-  }
-</script>
-
-
 
 		<style>
 			body {
@@ -110,8 +87,7 @@ function SubmitForm()
 						</div>
 						<div class="form-group">
 							<div class="col-lg-6 col-lg-offset-2">
-							  <!-- <button type='submit' class='btn btn-success'>Connect</button> -->
-                                                          <button class='btn btn-success' onclick="SubmitForm()">Connect</button>
+							  <button type='submit' class='btn btn-success'>Connect</button>
 							</div>
 						</div>
 					</form>
